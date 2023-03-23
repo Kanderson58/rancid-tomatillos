@@ -3,9 +3,9 @@ import './MovieCard.css';
 const MovieCard = ({movie}) => {
   return (
     <div className='movieCard'>
-      <figure>
+      <figure className='card'>
+        <figcaption className='title'><span className='overlay-cap'>{movie.title} <div className='date'>({movie.release_date.substr(0,4)})</div></span></figcaption>
         <img src={movie.poster_path} alt={movie.title} />
-        <figcaption className='title'>{movie.title} - ({movie.release_date})</figcaption>
       </figure>
     </div>
   )

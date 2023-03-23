@@ -1,6 +1,35 @@
 .moviesList {
   margin: 5%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  display: flex;
+  height: 500px;
+  width: 90%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  scroll-behavior: smooth;
+}
+
+.moviesList::-webkit-scrollbar {
+  display: none;
+}
+
+.list-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: absolute;
+  cursor: pointer;
+}
+
+.left-button {
+  padding-left: 1.5%;
+}
+
+.material-symbols-outlined {
+  display: flex;
+  align-items: center;
+  height: 500px;
+  font-size: 50pt;
+  font-weight: 900;
+  cursor: pointer;
 }
