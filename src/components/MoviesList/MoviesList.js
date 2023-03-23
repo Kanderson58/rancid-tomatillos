@@ -1,5 +1,6 @@
 import MovieCard from "./Moviecard/MovieCard";
 import './MoviesList.css';
+import PropTypes from 'prop-types';
 
 const MoviesList = ({allMovies, chooseMovie}) => {
   return (
@@ -10,3 +11,8 @@ const MoviesList = ({allMovies, chooseMovie}) => {
 }
 
 export default MoviesList;
+
+MoviesList.propTypes = {
+  allMovies: PropTypes.array.isRequired,
+  chooseMovie: PropTypes.func.isRequired
+};

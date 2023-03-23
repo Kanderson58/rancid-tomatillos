@@ -1,9 +1,9 @@
 import './App.css';
 import { Component } from 'react';
-import movieData from '../../data/data';
 import MoviesList from '../MoviesList/MoviesList';
 import Header from '../Header/Header';
 import MovieDetails from '../MovieDetails/MovieDetails';
+
 
 class App extends Component {
   constructor() {
@@ -22,6 +22,7 @@ class App extends Component {
   }
 
   chooseMovie = (movie) => {
+    if(movie) {
     fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${movie.id}`)
     .then(response => {
       if(response.ok) {
@@ -31,6 +32,9 @@ class App extends Component {
         }
       })
     .then(data => this.setState({selectedMovie: data.movie}))
+    } else {
+      this.setState({selectedMovie: null})
+    }
   }
 
   render() {
