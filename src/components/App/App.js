@@ -9,13 +9,29 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      allMovies: movieData.movies,
-      selectedMovie: null
+      allMovies: [],
+      selectedMovie: null,
+      error: null
     }
   }
 
+  componentDidMount = () => {
+    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
+    .then(response => response.json())
+    .then(data => this.setState({allMovies: data.movies}))
+  }
+
   chooseMovie = (movie) => {
-    this.setState({ selectedMovie: movie })
+    console.log(movie)
+    fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${movie.id}`)
+    .then(response => {
+      if(response.ok) {
+        return response.json()}
+        else {
+          console.log(response)
+        }
+      })
+    .then(data => this.setState({selectedMovie: data.movie}))
   }
 
   render() {
