@@ -3,7 +3,7 @@ import { Component } from 'react';
 import movieData from '../../data/data';
 import MoviesList from '../MoviesList/MoviesList';
 import Header from '../Header/Header';
-
+import MovieDetails from '../MovieDetails/MovieDetails';
 
 class App extends Component {
   constructor() {
@@ -14,11 +14,16 @@ class App extends Component {
     }
   }
 
+  chooseMovie = (movie) => {
+    this.setState({ selectedMovie: movie })
+  }
+
   render() {
     return (
       <div className="App">
         <Header />
-        <MoviesList allMovies={this.state.allMovies} />
+        {!this.state.selectedMovie && <MoviesList allMovies={this.state.allMovies} chooseMovie={this.chooseMovie} />}
+        {this.state.selectedMovie && <MovieDetails selectedMovie={this.state.selectedMovie} chooseMovie={this.chooseMovie} />}
       </div>
     )
   };
