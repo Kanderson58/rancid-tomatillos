@@ -22,7 +22,6 @@ class App extends Component {
   }
 
   chooseMovie = (movie) => {
-    console.log(movie)
     fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${movie.id}`)
     .then(response => {
       if(response.ok) {
