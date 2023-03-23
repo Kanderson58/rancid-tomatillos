@@ -1,0 +1,15 @@
+footer {
+  width: 96%;
+  height: fit-content;
+  background-color: #880114;
+  padding: 2%;
+  margin-top: 2%;
+}
+
+.home-button {
+  background: none;
+  border: none;
+  color: white;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 20pt;
+}
