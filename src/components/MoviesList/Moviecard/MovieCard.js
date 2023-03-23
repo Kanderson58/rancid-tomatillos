@@ -1,8 +1,8 @@
 import './MovieCard.css';
 
-const MovieCard = ({movie}) => {
+const MovieCard = ({movie, chooseMovie}) => {
   return (
-    <div className='movieCard'>
+    <div className='movieCard' onClick={() => {chooseMovie(movie)}}>
       <img src={movie.poster_path} />
       <div className='overlay'>
         <h2 className='title'>{movie.title}</h2>

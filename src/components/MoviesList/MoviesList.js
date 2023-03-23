@@ -1,10 +1,10 @@
 import MovieCard from "./Moviecard/MovieCard";
 import './MoviesList.css';
 
-const MoviesList = ({allMovies}) => {
+const MoviesList = ({allMovies, chooseMovie}) => {
   return (
     <div className='moviesList'>
-      {allMovies.map(movie => <MovieCard movie={movie} />)}
+      {allMovies.map(movie => <MovieCard key={movie.id} movie={movie} chooseMovie={chooseMovie} />)}
     </div>
   )
 }
