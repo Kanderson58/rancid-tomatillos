@@ -23,7 +23,7 @@ class App extends Component {
       <div className="App">
         <Header />
         {!this.state.selectedMovie && <MoviesList allMovies={this.state.allMovies} chooseMovie={this.chooseMovie} />}
-        {this.state.selectedMovie && <MovieDetails />}
+        {this.state.selectedMovie && <MovieDetails selectedMovie={this.state.selectedMovie} chooseMovie={this.chooseMovie} />}
       </div>
     )
   };
