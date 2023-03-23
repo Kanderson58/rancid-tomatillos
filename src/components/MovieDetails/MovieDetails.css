@@ -37,10 +37,16 @@ ul {
 
 li {
   padding-bottom: 2%;
+  padding-right: 4%;
 }
 
 h2 {
   font-family: 'Bebas Neue', cursive;
   font-size: 30pt;
-  margin: 2% 0;
+  margin: 2% 0 ;
+}
+
+.category {
+  font-weight: 700;
+  font-family: 'Bebas Neue', cursive;
 }
