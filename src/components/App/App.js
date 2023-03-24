@@ -3,6 +3,7 @@ import { Component } from 'react';
 import MoviesList from '../MoviesList/MoviesList';
 import Header from '../Header/Header';
 import MovieDetails from '../MovieDetails/MovieDetails';
+import { getAllMovies, getMovieById } from '../../apiCalls';
 
 
 class App extends Component {
@@ -16,31 +17,29 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
-    .then(response => response.json())
-    .then(data => this.setState({allMovies: data.movies}))
+    getAllMovies().then(movies => {
+      this.setState({ allMovies: movies });
+    });
   }
 
   chooseMovie = (movie) => {
-    if(movie) {
-    fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${movie.id}`)
-    .then(response => {
-      if(response.ok) {
-        return response.json()}
-        else {
-          console.log(response)
-        }
-      })
-    .then(data => this.setState({selectedMovie: data.movie}))
+    if (movie) {
+      getMovieById(movie.id).then(movieData => {
+        this.setState({ selectedMovie: movieData });
+      }).catch(error => {
+        this.setState({ error: error.message });
+      });
     } else {
-      this.setState({selectedMovie: null})
+      this.setState({ selectedMovie: null });
     }
   }
+
 
   render() {
     return (
       <div className="App">
         <Header />
+        {this.state.error && <p className="error">{this.state.error}</p>}
         {!this.state.selectedMovie && <MoviesList allMovies={this.state.allMovies} chooseMovie={this.chooseMovie} />}
         {this.state.selectedMovie && <MovieDetails selectedMovie={this.state.selectedMovie} chooseMovie={this.chooseMovie} />}
       </div>
