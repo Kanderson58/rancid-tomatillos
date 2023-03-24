@@ -11,14 +11,16 @@ class App extends Component {
     super();
     this.state = {
       allMovies: [],
+      filteredMovies: [],
       selectedMovie: null,
       error: null,
+      searchQuery: ''
     }
   }
 
   componentDidMount = () => {
     getAllMovies()
-      .then(movies => { this.setState({ allMovies: movies.movies })})
+      .then(movies => { this.setState({ allMovies: movies.movies, filteredMovies: movies.movies })})
       .catch(error => {this.setState({ error: error.toString() })});
   }
 
@@ -32,12 +34,21 @@ class App extends Component {
     }
   }
 
+  onChange = (event) => {
+    this.setState({searchQuery: event.target.value})
+    const filteredMovies = this.state.allMovies.filter(movie => {
+      return movie.title.toLowerCase().includes(this.state.searchQuery.toLowerCase())
+    })
+    this.setState({filteredMovies: filteredMovies})
+    console.log(filteredMovies)
+  }
+
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header value={this.searchQuery} onChange={this.onChange}/>
         {this.state.error && <p className="error">Sorry, there was an error loading your page!  {this.state.error}</p>}
-        {!this.state.selectedMovie && !this.state.error && <MoviesList allMovies={this.state.allMovies} chooseMovie={this.chooseMovie} />}
+        {!this.state.selectedMovie && !this.state.error && <MoviesList allMovies={this.state.filteredMovies} chooseMovie={this.chooseMovie} />}
         {this.state.selectedMovie && !this.state.error && <MovieDetails 
           title={this.state.selectedMovie.title}
           average_rating={this.state.selectedMovie.average_rating}
@@ -49,7 +60,8 @@ class App extends Component {
           tagline={this.state.selectedMovie.tagline}
           backdrop_path={this.state.selectedMovie.backdrop_path}
           poster_path={this.state.selectedMovie.poster_path}
-          chooseMovie={this.chooseMovie} />}
+          chooseMovie={this.chooseMovie} 
+          />}
       </div>
     )
   };
