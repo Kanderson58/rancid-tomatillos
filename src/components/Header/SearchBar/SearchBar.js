@@ -6,13 +6,14 @@ const SearchBar = ({ value, onChange }) => {
     <div className='searchBar'>
       <label htmlFor='search-bar'>Search Movies:</label>
       <input 
+        id='search-bar'
         type='text'
         id='search-bar'
         placeholder='Search..'
         value={value}
         onChange={onChange}
       />
-      <button onClick={onChange}>SEARCH</button>
+      <button className='search-btn' onClick={onChange}><span className="material-symbols-outlined">search</span></button>
     </div>
   )
 } 
