@@ -5,8 +5,10 @@ import SearchBar from "./SearchBar/SearchBar"
 const Header = ({value, onChange}) => {
   return (
     <header>
-      <h1>Rancid Tomatillos</h1>
-      <img className="tomatillo" src={tomatillo} alt="tomatillo" />
+      <div className="header">
+        <h1>Rancid Tomatillos</h1>
+        <img className="tomatillo" src={tomatillo} alt="tomatillo" />
+      </div>
       <SearchBar value={value} onChange={onChange} />
     </header>
   )
