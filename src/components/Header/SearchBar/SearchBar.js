@@ -1,7 +1,7 @@
 import './SearchBar.css'
 import PropTypes from 'prop-types'
 
-const SearchBar = ({ value, onChange }) => {
+const SearchBar = ({ value, onChange, onSearchClick }) => {
   return (
     <div className='searchBar'>
       <label htmlFor='search-bar'>Search Movies:</label>
@@ -13,7 +13,7 @@ const SearchBar = ({ value, onChange }) => {
         value={value}
         onChange={onChange}
       />
-      <button className='search-btn' onClick={onChange}><span className="material-symbols-outlined">search</span></button>
+      <button className='search-btn' onClick={onSearchClick}><span className="material-symbols-outlined">search</span></button>
     </div>
   )
 } 

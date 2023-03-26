@@ -14,7 +14,8 @@ class App extends Component {
       filteredMovies: [],
       selectedMovie: null,
       error: null,
-      searchQuery: ''
+      searchQuery: '',
+      searchError: null
     }
   }
 
@@ -34,21 +35,69 @@ class App extends Component {
     }
   }
 
+  // setState is asynchronous
+  // this.state.searchQuery in the filter was using the previous value instead of the updated value
+  // can use a callback fn in set state to wait for the search query and THEN filter
+  // onChange and onClick is redundant 
+  // what if we just kept on change and then made the button clear and reset the search?
   onChange = (event) => {
-    this.setState({searchQuery: event.target.value})
-    const filteredMovies = this.state.allMovies.filter(movie => {
-      return movie.title.toLowerCase().includes(this.state.searchQuery.toLowerCase())
-    })
-    this.setState({filteredMovies: filteredMovies})
-    console.log(filteredMovies)
+    const searchQuery = event.target.value;
+    this.setState({ searchQuery }, () => {
+      const filteredMovies = this.state.allMovies.filter(movie => {
+        return movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+      });
+      this.setState({ filteredMovies: filteredMovies });
+
+      if (filteredMovies.length === 0) {
+        this.setState({ filteredMovies: [], searchError: "No movies found with the given search query." });
+      } else {
+        this.setState({ filteredMovies: filteredMovies, searchError: null });
+      }
+    });
   }
+
+  // if we consolidated to just onChange
+  onChange = (event) => {
+    const searchQuery = event.target.value;
+    const filteredMovies = this.state.allMovies.filter(movie => {
+      return movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+    });
+  
+    if (filteredMovies.length === 0) {
+      this.setState({ filteredMovies: [], searchError: "No movies found with the given search query." });
+    } else {
+      this.setState({ filteredMovies: filteredMovies, searchError: null });
+    }
+    
+    this.setState({ searchQuery: searchQuery });
+  };
+  
+
+  onSearchClick = () => {
+    const searchQuery = this.state.searchQuery;
+    const filteredMovies = this.state.allMovies.filter(movie => {
+      return movie.title.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+  
+    if (filteredMovies.length === 0) {
+      this.setState({ filteredMovies: [], searchError: "No movies found with the given search query." });
+    } else {
+      this.setState({ filteredMovies: filteredMovies, searchError: null });
+    }
+  };
+
+  // onClearClick = () => {
+  //   this.setState({ searchQuery: '', filteredMovies: this.state.allMovies, searchError: null });
+  // };
+  
 
   render() {
     return (
       <div className="App">
-        <Header value={this.searchQuery} onChange={this.onChange}/>
+        <Header value={this.searchQuery} onChange={this.onChange} onSearchClick={this.onSearchClick} />
         {this.state.error && <p className="error">Sorry, there was an error loading your page!  {this.state.error}</p>}
-        {!this.state.selectedMovie && !this.state.error && <MoviesList allMovies={this.state.filteredMovies} chooseMovie={this.chooseMovie} />}
+        {this.state.searchError && <p className="error">{this.state.searchError}</p>}
+        {!this.state.selectedMovie && !this.state.error && this.state.filteredMovies.length > 0 && <MoviesList allMovies={this.state.filteredMovies} chooseMovie={this.chooseMovie} />}
         {this.state.selectedMovie && !this.state.error && <MovieDetails 
           title={this.state.selectedMovie.title}
           average_rating={this.state.selectedMovie.average_rating}
@@ -65,6 +114,7 @@ class App extends Component {
       </div>
     )
   };
+  
 }
 
 export default App;

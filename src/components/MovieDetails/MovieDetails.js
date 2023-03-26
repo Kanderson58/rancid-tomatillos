@@ -2,6 +2,7 @@ import "./MovieDetails.css";
 import Footer from "./Footer/Footer";
 import PropTypes from 'prop-types';
 
+
 const MovieDetails = ({title, average_rating, overview, genres, budget, revenue, runtime, tagline, backdrop_path, poster_path, chooseMovie}) => {
   return (
     <div className="overlay-single-movie">

@@ -1,5 +1,10 @@
 .error {
-  background-color: red;
-  color: white;
+  margin: auto;
+  text-align: center;
+  background-color: #f2f2f2;
+  color: #333;
+  border-radius: 8px;
+  padding: 16px;
+  font-family: 'Bebas Neue', cursive;
   font-size: 1.2rem;
 }
