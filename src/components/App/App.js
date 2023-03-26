@@ -57,20 +57,20 @@ class App extends Component {
   }
 
   // if we consolidated to just onChange
-  onChange = (event) => {
-    const searchQuery = event.target.value;
-    const filteredMovies = this.state.allMovies.filter(movie => {
-      return movie.title.toLowerCase().includes(searchQuery.toLowerCase())
-    });
+  // onChange = (event) => {
+  //   const searchQuery = event.target.value;
+  //   const filteredMovies = this.state.allMovies.filter(movie => {
+  //     return movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+  //   });
   
-    if (filteredMovies.length === 0) {
-      this.setState({ filteredMovies: [], searchError: "No movies found with the given search query." });
-    } else {
-      this.setState({ filteredMovies: filteredMovies, searchError: null });
-    }
+  //   if (filteredMovies.length === 0) {
+  //     this.setState({ filteredMovies: [], searchError: "No movies found with the given search query." });
+  //   } else {
+  //     this.setState({ filteredMovies: filteredMovies, searchError: null });
+  //   }
     
-    this.setState({ searchQuery: searchQuery });
-  };
+  //   this.setState({ searchQuery: searchQuery });
+  // };
   
 
   onSearchClick = () => {
@@ -86,6 +86,7 @@ class App extends Component {
     }
   };
 
+// if we changed button to a clear search to pass down as a prop
   // onClearClick = () => {
   //   this.setState({ searchQuery: '', filteredMovies: this.state.allMovies, searchError: null });
   // };
