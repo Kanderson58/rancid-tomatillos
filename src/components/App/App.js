@@ -5,9 +5,6 @@ import Header from '../Header/Header';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import { getAllMovies, getMovieById } from '../../apiCalls';
 
-// when we have a movie selected, hide the searchbar
-// add a way to navigate back home other than manually clearing search?
-
 class App extends Component {
   constructor() {
     super();
@@ -51,12 +48,16 @@ class App extends Component {
     } else {
       this.setState({ searchError: null });
     }
-  };  
+  };
+
+  clearSearch = () => {
+    this.setState({activeSearch: false, filteredMovies: this.state.allMovies, searchError: null});
+  }
 
   render() {
     return (
       <div className="App">
-        <Header onSearch={this.onSearch}/>
+        <Header onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie}/>
 
         {this.state.error && <p className='error'>Sorry, there was an error loading your page!  {this.state.error}</p>}
 

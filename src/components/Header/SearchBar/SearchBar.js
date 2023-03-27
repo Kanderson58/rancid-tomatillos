@@ -11,21 +11,28 @@ class SearchBar extends Component {
   }
 
   onChange = (event) => {
-    this.setState({ search: event.target.value})
+    this.setState({ search: event.target.value});
+  }
+  
+  clearInput = (event) => {
+    event.preventDefault();
+    this.setState({search: ''});
+    this.props.clearSearch();
   }
 
   render() {
     return (
       <div className='searchBar'>
-        <label htmlFor='search-bar'>Search Movies:</label>
-        <input 
+        {!this.props.selectedMovie && <label htmlFor='search-bar'>Search Movies:</label>}
+        {!this.props.selectedMovie && <input 
           id='search-bar'
           type='text'
           placeholder='Search...'
           onChange={(event) => this.onChange(event)}
           onKeyUp={() => this.props.onSearch(this.state.search)}
-        />
-        {this.state.search && <button className='search-btn' onClick={() => console.log("clear")}>Clear Search</button>}
+          value={this.state.search}
+        />}
+        {this.state.search && !this.props.selectedMovie && <button className='clear-btn' onClick={(event) => {this.clearInput(event)}}>Clear Search</button>}
       </div>
     )
   } 

@@ -10,14 +10,14 @@ const MovieDetails = ({title, average_rating, overview, genres, budget, revenue,
       <div className="movie-info">
         <img src={poster_path} className="movie-poster" alt={title} />
         <div className="details">
-          <h2>{title} - {Math.round(average_rating)}/10</h2>
+          <h2>{title} {tagline && <em>- "<span>{tagline}</span>"</em>}</h2>
           <ul>
             {overview && <li><span className="category">Overview:</span> {overview}</li>}
             {genres && <li><span className="category">Genres:</span> {genres.map((genre, index) => index ? ", " + genre : genre)}</li>}
             {budget ? <li><span className="category">Budget:</span> ${budget.toLocaleString()}</li>: null}
             {revenue ? <li><span className="category">Revenue:</span> ${revenue.toLocaleString()}</li>: null}
             {runtime ? <li><span className="category">Runtime:</span> {runtime} minutes</li>: null}
-            {tagline && <li><span className="category">Tagline:</span> {tagline}</li>}
+            <li><span className="category">Rating:</span> {Math.round(average_rating)}/10</li>
           </ul>
         </div>
       </div>

@@ -9,19 +9,21 @@ input {
 .searchBar {
   display: flex;
   align-items: center;
-  width: 35%;
+  width: 50%;
   font-size: 18pt;
   color: white;
+  justify-content: flex-end;
+  margin-right: 2%;
 }
 
-.search-btn {
+.clear-btn {
+  font-family: 'Bebas Neue', cursive;
   background: none;
-  border: none;
-  color: white;
+  border: 2px white solid;
+  padding: 1%;
   cursor: pointer;
-}
-
-.material-symbols-outlined {
-  font-size: 20pt;
-  font-weight: 900;
+  display: flex;
+  align-items: center;
+  font-size: 18pt;
+  color: white;
 }
