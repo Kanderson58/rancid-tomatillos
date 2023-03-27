@@ -51,13 +51,13 @@ class App extends Component {
   };
 
   clearSearch = () => {
-    this.setState({activeSearch: false, filteredMovies: this.state.allMovies});
+    this.setState({activeSearch: false, filteredMovies: this.state.allMovies, searchError: null});
   }
 
   render() {
     return (
       <div className="App">
-        <Header onSearch={this.onSearch} clearSearch={this.clearSearch}/>
+        <Header onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie}/>
 
         {this.state.error && <p className='error'>Sorry, there was an error loading your page!  {this.state.error}</p>}
 
