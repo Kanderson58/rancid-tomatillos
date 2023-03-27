@@ -9,8 +9,7 @@ const MovieCard = ({movie, chooseMovie}) => {
   };
 
   return (
-    <div className='movieCard' onClick={() => {chooseMovie(movie)}}
-    tabIndex={0} onKeyDown={handleKeyPress}>
+    <div className='movieCard' onClick={() => {chooseMovie(movie)}} tabIndex='0' onKeyDown={handleKeyPress}>
       <img src={movie.poster_path} alt={movie.title}/>
       <div className='overlay'>
         <h2 className='title'>{movie.title}</h2>

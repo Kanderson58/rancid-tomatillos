@@ -1,17 +1,22 @@
-import "./Header.css"
-import tomatillo from "./tomatillo.png"
-import SearchBar from "./SearchBar/SearchBar"
+import './Header.css'
+import tomatillo from './tomatillo.png'
+import SearchBar from './SearchBar/SearchBar'
+import PropTypes from 'prop-types';
 
-const Header = ({value, onChange}) => {
+const Header = ({onSearch}) => {
   return (
     <header>
-      <div className="header">
+      <div className='header'>
         <h1>Rancid Tomatillos</h1>
-        <img className="tomatillo" src={tomatillo} alt="tomatillo" />
+        <img className='tomatillo' src={tomatillo} alt='tomatillo' />
       </div>
-      <SearchBar value={value} onChange={onChange} />
+      <SearchBar onSearch={onSearch}/>
     </header>
   )
 }
 
 export default Header;
+
+Header.propTypes = {
+  onSearch: PropTypes.func
+}

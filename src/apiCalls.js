@@ -17,5 +17,6 @@ export const getMovieById = (id) => {
       } else {
         throw new Error(response.statusText);
       }
-    })
+    }
+  )
 };

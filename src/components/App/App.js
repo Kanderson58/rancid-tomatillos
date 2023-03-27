@@ -5,6 +5,8 @@ import Header from '../Header/Header';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import { getAllMovies, getMovieById } from '../../apiCalls';
 
+// when we have a movie selected, hide the searchbar
+// add a way to navigate back home other than manually clearing search?
 
 class App extends Component {
   constructor() {
@@ -14,7 +16,8 @@ class App extends Component {
       filteredMovies: [],
       selectedMovie: null,
       error: null,
-      searchQuery: ''
+      searchError: null,
+      activeSearch: false
     }
   }
 
@@ -27,28 +30,40 @@ class App extends Component {
   chooseMovie = (movie) => {
     if (movie) {
       getMovieById(movie.id)
-        .then(movieData => {this.setState({ selectedMovie: movieData.movie })})
-        .catch(error => {this.setState({ error: error.toString() })});
+      .then(movieData => {this.setState({ selectedMovie: movieData.movie })})
+      .catch(error => {this.setState({ error: error.toString() })});
     } else {
       this.setState({ selectedMovie: null });
     }
   }
 
-  onChange = (event) => {
-    this.setState({searchQuery: event.target.value})
+  onSearch = (search) => {
+    !search ? this.setState({activeSearch: false}) : this.setState({activeSearch: true})
+
     const filteredMovies = this.state.allMovies.filter(movie => {
-      return movie.title.toLowerCase().includes(this.state.searchQuery.toLowerCase())
-    })
-    this.setState({filteredMovies: filteredMovies})
-    console.log(filteredMovies)
-  }
+      return movie.title.toLowerCase().includes(search.toLowerCase())
+    });
+
+    this.setState({ filteredMovies: filteredMovies });
+
+    if (!filteredMovies.length) {
+      this.setState({ searchError: 'No movies found with the given search query.' });
+    } else {
+      this.setState({ searchError: null });
+    }
+  };  
 
   render() {
     return (
       <div className="App">
-        <Header value={this.searchQuery} onChange={this.onChange}/>
-        {this.state.error && <p className="error">Sorry, there was an error loading your page!  {this.state.error}</p>}
-        {!this.state.selectedMovie && !this.state.error && <MoviesList allMovies={this.state.filteredMovies} chooseMovie={this.chooseMovie} />}
+        <Header onSearch={this.onSearch}/>
+
+        {this.state.error && <p className='error'>Sorry, there was an error loading your page!  {this.state.error}</p>}
+
+        {this.state.searchError && <p className='error'>{this.state.searchError}</p>}
+
+        {!this.state.selectedMovie && !this.state.error && this.state.filteredMovies.length > 0 && <MoviesList allMovies={this.state.filteredMovies} chooseMovie={this.chooseMovie} />}
+
         {this.state.selectedMovie && !this.state.error && <MovieDetails 
           title={this.state.selectedMovie.title}
           average_rating={this.state.selectedMovie.average_rating}
@@ -61,6 +76,8 @@ class App extends Component {
           backdrop_path={this.state.selectedMovie.backdrop_path}
           poster_path={this.state.selectedMovie.poster_path}
           chooseMovie={this.chooseMovie} 
+          activeSearch={this.state.activeSearch}
+          singleMovie={this.state.selectedMovie ? true : false}
           />}
       </div>
     )
