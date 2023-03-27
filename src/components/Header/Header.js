@@ -10,7 +10,7 @@ const Header = ({onSearch, clearSearch, selectedMovie}) => {
         <h1>Rancid Tomatillos</h1>
         <img className='tomatillo' src={tomatillo} alt='tomatillo' />
       </div>
-      {!selectedMovie && <SearchBar onSearch={onSearch} clearSearch={clearSearch}/>}
+      <SearchBar onSearch={onSearch} clearSearch={clearSearch} selectedMovie={selectedMovie}/>
     </header>
   )
 }

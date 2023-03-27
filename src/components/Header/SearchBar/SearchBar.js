@@ -23,16 +23,16 @@ class SearchBar extends Component {
   render() {
     return (
       <div className='searchBar'>
-        <label htmlFor='search-bar'>Search Movies:</label>
-        <input 
+        {!this.props.selectedMovie && <label htmlFor='search-bar'>Search Movies:</label>}
+        {!this.props.selectedMovie && <input 
           id='search-bar'
           type='text'
           placeholder='Search...'
           onChange={(event) => this.onChange(event)}
           onKeyUp={() => this.props.onSearch(this.state.search)}
           value={this.state.search}
-        />
-        {this.state.search && <button className='clear-btn' onClick={(event) => {this.clearInput(event)}}>Clear Search</button>}
+        />}
+        {this.state.search && !this.props.selectedMovie && <button className='clear-btn' onClick={(event) => {this.clearInput(event)}}>Clear Search</button>}
       </div>
     )
   } 
