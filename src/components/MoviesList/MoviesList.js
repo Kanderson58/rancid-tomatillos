@@ -1,7 +1,6 @@
 import MovieCard from "./Moviecard/MovieCard";
 import './MoviesList.css';
 import PropTypes from 'prop-types';
-import Footer from "../MovieDetails/Footer/Footer";
 
 const MoviesList = ({allMovies, chooseMovie}) => {
   return (
