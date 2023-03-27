@@ -3,12 +3,12 @@ import Footer from "./Footer/Footer";
 import PropTypes from 'prop-types';
 
 
-const MovieDetails = ({title, average_rating, overview, genres, budget, revenue, runtime, tagline, backdrop_path, poster_path, chooseMovie}) => {
+const MovieDetails = ({title, average_rating, overview, genres, budget, revenue, runtime, tagline, backdrop_path, poster_path, chooseMovie, activeSearch, singleMovie}) => {
   return (
     <div className="overlay-single-movie">
-      <img src={backdrop_path} className="backdrop"/>
+      <img src={backdrop_path} className="backdrop" alt={title}/>
       <div className="movie-info">
-        <img src={poster_path} className="movie-poster" />
+        <img src={poster_path} className="movie-poster" alt={title} />
         <div className="details">
           <h2>{title} - {Math.round(average_rating)}/10</h2>
           <ul>
@@ -21,7 +21,7 @@ const MovieDetails = ({title, average_rating, overview, genres, budget, revenue,
           </ul>
         </div>
       </div>
-      <Footer chooseMovie={chooseMovie} />
+      <Footer chooseMovie={chooseMovie} activeSearch={activeSearch} singleMovie={singleMovie} />
     </div>
   )
 }

@@ -5,6 +5,8 @@ import Header from '../Header/Header';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import { getAllMovies, getMovieById } from '../../apiCalls';
 
+// when we have a movie selected, hide the searchbar
+// add a way to navigate back home other than manually clearing search?
 
 class App extends Component {
   constructor() {
@@ -14,8 +16,8 @@ class App extends Component {
       filteredMovies: [],
       selectedMovie: null,
       error: null,
-      searchQuery: '',
-      searchError: null
+      searchError: null,
+      activeSearch: false
     }
   }
 
@@ -28,77 +30,40 @@ class App extends Component {
   chooseMovie = (movie) => {
     if (movie) {
       getMovieById(movie.id)
-        .then(movieData => {this.setState({ selectedMovie: movieData.movie })})
-        .catch(error => {this.setState({ error: error.toString() })});
+      .then(movieData => {this.setState({ selectedMovie: movieData.movie })})
+      .catch(error => {this.setState({ error: error.toString() })});
     } else {
       this.setState({ selectedMovie: null });
     }
   }
 
-  // setState is asynchronous
-  // this.state.searchQuery in the filter was using the previous value instead of the updated value
-  // can use a callback fn in set state to wait for the search query and THEN filter
-  // onChange and onClick is redundant 
-  // what if we just kept on change and then made the button clear and reset the search?
-  onChange = (event) => {
-    const searchQuery = event.target.value;
-    this.setState({ searchQuery }, () => {
-      const filteredMovies = this.state.allMovies.filter(movie => {
-        return movie.title.toLowerCase().includes(searchQuery.toLowerCase())
-      });
-      this.setState({ filteredMovies: filteredMovies });
+  onSearch = (search) => {
+    !search ? this.setState({activeSearch: false}) : this.setState({activeSearch: true})
 
-      if (filteredMovies.length === 0) {
-        this.setState({ filteredMovies: [], searchError: "No movies found with the given search query." });
-      } else {
-        this.setState({ filteredMovies: filteredMovies, searchError: null });
-      }
-    });
-  }
-
-  // if we consolidated to just onChange
-  // onChange = (event) => {
-  //   const searchQuery = event.target.value;
-  //   const filteredMovies = this.state.allMovies.filter(movie => {
-  //     return movie.title.toLowerCase().includes(searchQuery.toLowerCase())
-  //   });
-  
-  //   if (filteredMovies.length === 0) {
-  //     this.setState({ filteredMovies: [], searchError: "No movies found with the given search query." });
-  //   } else {
-  //     this.setState({ filteredMovies: filteredMovies, searchError: null });
-  //   }
-    
-  //   this.setState({ searchQuery: searchQuery });
-  // };
-  
-
-  onSearchClick = () => {
-    const searchQuery = this.state.searchQuery;
     const filteredMovies = this.state.allMovies.filter(movie => {
-      return movie.title.toLowerCase().includes(searchQuery.toLowerCase());
+      return movie.title.toLowerCase().includes(search.toLowerCase())
     });
-  
-    if (filteredMovies.length === 0) {
-      this.setState({ filteredMovies: [], searchError: "No movies found with the given search query." });
-    } else {
-      this.setState({ filteredMovies: filteredMovies, searchError: null });
-    }
-  };
 
-// if we changed button to a clear search to pass down as a prop
-  // onClearClick = () => {
-  //   this.setState({ searchQuery: '', filteredMovies: this.state.allMovies, searchError: null });
-  // };
-  
+    this.setState({ filteredMovies: filteredMovies });
+
+    if (!filteredMovies.length) {
+      this.setState({ searchError: 'No movies found with the given search query.' });
+    } else {
+      this.setState({ searchError: null });
+    }
+  };  
 
   render() {
     return (
       <div className="App">
-        <Header value={this.searchQuery} onChange={this.onChange} onSearchClick={this.onSearchClick} />
-        {this.state.error && <p className="error">Sorry, there was an error loading your page!  {this.state.error}</p>}
-        {this.state.searchError && <p className="error">{this.state.searchError}</p>}
+        <Header onSearch={this.onSearch}/>
+
+        {this.state.error && <p className='error'>Sorry, there was an error loading your page!  {this.state.error}</p>}
+
+        {this.state.searchError && <p className='error'>{this.state.searchError}</p>}
+
         {!this.state.selectedMovie && !this.state.error && this.state.filteredMovies.length > 0 && <MoviesList allMovies={this.state.filteredMovies} chooseMovie={this.chooseMovie} />}
+
         {this.state.selectedMovie && !this.state.error && <MovieDetails 
           title={this.state.selectedMovie.title}
           average_rating={this.state.selectedMovie.average_rating}
@@ -111,11 +76,12 @@ class App extends Component {
           backdrop_path={this.state.selectedMovie.backdrop_path}
           poster_path={this.state.selectedMovie.poster_path}
           chooseMovie={this.chooseMovie} 
+          activeSearch={this.state.activeSearch}
+          singleMovie={this.state.selectedMovie ? true : false}
           />}
       </div>
     )
   };
-  
 }
 
 export default App;
