@@ -4,6 +4,7 @@ import MoviesList from '../MoviesList/MoviesList';
 import Header from '../Header/Header';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import { getAllMovies, getMovieById } from '../../apiCalls';
+import { Route, Switch } from 'react-router-dom';
 
 class App extends Component {
   constructor() {
@@ -62,8 +63,9 @@ class App extends Component {
         {this.state.error && <p className='error'>Sorry, there was an error loading your page!  {this.state.error}</p>}
 
         {this.state.searchError && <p className='error'>{this.state.searchError}</p>}
-
+   
         {!this.state.selectedMovie && !this.state.error && this.state.filteredMovies.length > 0 && <MoviesList allMovies={this.state.filteredMovies} chooseMovie={this.chooseMovie} />}
+        
 
         {this.state.selectedMovie && !this.state.error && <MovieDetails 
           title={this.state.selectedMovie.title}
