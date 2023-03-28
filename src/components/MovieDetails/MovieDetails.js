@@ -3,7 +3,9 @@ import Footer from "./Footer/Footer";
 import PropTypes from 'prop-types';
 
 
+
 const MovieDetails = ({title, average_rating, overview, genres, budget, revenue, runtime, tagline, backdrop_path, poster_path, chooseMovie, activeSearch, singleMovie}) => {
+  
   return (
     <div className="overlay-single-movie">
       <img src={backdrop_path} className="backdrop" alt={title}/>

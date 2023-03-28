@@ -1,5 +1,6 @@
 import './MovieCard.css';
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom';
 
 const MovieCard = ({movie, chooseMovie}) => {
   const handleKeyPress = (event) => {
@@ -9,6 +10,7 @@ const MovieCard = ({movie, chooseMovie}) => {
   };
 
   return (
+    <Link to={`/movie/${movie.id}`} >
     <div className='movieCard' onClick={() => {chooseMovie(movie)}} tabIndex='0' onKeyDown={handleKeyPress}>
       <img src={movie.poster_path} alt={movie.title}/>
       <div className='overlay'>
@@ -16,6 +18,7 @@ const MovieCard = ({movie, chooseMovie}) => {
         <p className='date'>{movie.release_date.slice(0, 4)}</p>
       </div>
     </div>
+    </Link>
   )
 }
 
