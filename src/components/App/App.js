@@ -25,16 +25,6 @@ class App extends Component {
       .catch(error => {this.setState({ error: error.toString() })});
   }
 
-  chooseMovie = (movie) => {
-    if (movie) {
-      getMovieById(movie.id)
-      .then(movieData => {this.setState({ selectedMovie: movieData.movie })})
-      .catch(error => {this.setState({ error: error.toString() })});
-    } else {
-      this.setState({ selectedMovie: null });
-    }
-  }
-
   onSearch = (search) => {
     !search ? this.setState({activeSearch: false}) : this.setState({activeSearch: true})
 
@@ -64,21 +54,13 @@ class App extends Component {
 
         {this.state.searchError && <p className='error'>{this.state.searchError}</p>}
 
-          <Route exact path="/" render={() => 
-            <MoviesList 
-              allMovies={this.state.filteredMovies} 
-              chooseMovie={this.chooseMovie} />
-          }
-          />
+        <Route exact path="/" render={() => 
+          <MoviesList allMovies={this.state.filteredMovies} />}
+        />
 
-          <Route path="/:id" render={({match}) =>  {
+        <Route path="/:id" render={({match}) =>  {
           const chosenMovie = this.state.allMovies.find(movie => movie.id == match.params.id)
-          return <MovieDetails 
-            chosenMovie={chosenMovie}
-            chooseMovie={this.chooseMovie}
-            activeSearch={this.state.activeSearch}
-            singleMovie={this.state.selectedMovie ? true : false}
-          />}}
+          return <MovieDetails chosenMovie={chosenMovie} />}}
         />
       </div>
     )
