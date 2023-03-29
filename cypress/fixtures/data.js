@@ -16,21 +16,37 @@ const sampleMovies = {
   ]
 };
 
-const singleMovie = {
-  "movie":
-    {"id":882598,
-    "title":"Smile",
-    "poster_path":"https://image.tmdb.org/t/p/original//aPqcQwu4VGEewPhagWNncDbJ9Xp.jpg",
-    "backdrop_path":"https://image.tmdb.org/t/p/original//olPXihyFeeNvnaD6IOBltgIV1FU.jpg",
-    "release_date":"2022-09-23",
-    "overview":"After witnessing a bizarre, traumatic incident involving a patient, Dr. Rose Cotter starts experiencing frightening occurrences that she can't explain. As an overwhelming terror begins taking over her life, Rose must confront her troubling past in order to survive and escape her horrifying new reality.",
-    "genres":["Horror","Mystery","Thriller"],
-    "budget":17000000,
-    "revenue":214000000,
-    "runtime":115,
-    "tagline":"Once you see it, it’s too late.",
-    "average_rating":8
+const firstMovie = {
+  "movie": {
+    "id":436270,
+    "title":"Black Adam",
+    "poster_path":"https://image.tmdb.org/t/p/original//pFlaoHTZeyNkG83vxsAJiGzfSsa.jpg",
+    "backdrop_path":"https://image.tmdb.org/t/p/original//bQXAqRx2Fgc46uCVWgoPz5L5Dtr.jpg",
+    "release_date":"2022-10-19",
+    "overview":"Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods—and imprisoned just as quickly—Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world.","genres":["Action","Fantasy","Science Fiction"],
+    "budget":200000000,
+    "revenue":384571691,
+    "runtime":125,"tagline":
+    "The world needed a hero. It got Black Adam.",
+    "average_rating":4
   }
 }
 
-export default { sampleMovies, singleMovie };
+const secondMovie = {
+  "movie":{
+    "id":724495,
+    "title":"The Woman King",
+    "poster_path":"https://image.tmdb.org/t/p/original//438QXt1E3WJWb3PqNniK0tAE5c1.jpg",
+    "backdrop_path":"https://image.tmdb.org/t/p/original//7zQJYV02yehWrQN6NjKsBorqUUS.jpg",
+    "release_date":"2022-09-15",
+    "overview":"The story of the Agojie, the all-female unit of warriors who protected the African Kingdom of Dahomey in the 1800s with skills and a fierceness unlike anything the world has ever seen, and General Nanisca as she trains the next generation of recruits and readies them for battle against an enemy determined to destroy their way of life.",
+    "genres":["Action","Drama","History"],
+    "budget":50000000,
+    "revenue":91000000,
+    "runtime":135,
+    "tagline":"Her reign begins.",
+    "average_rating":4
+  }
+}
+
+export default { sampleMovies, firstMovie, secondMovie };

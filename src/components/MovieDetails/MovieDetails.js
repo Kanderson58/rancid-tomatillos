@@ -1,29 +1,44 @@
 import "./MovieDetails.css";
 import Footer from "./Footer/Footer";
 import PropTypes from 'prop-types';
+import { getMovieById } from "../../apiCalls";
+import { Component } from "react";
 
-const MovieDetails = ({title, average_rating, overview, genres, budget, revenue, runtime, tagline, backdrop_path, poster_path, chooseMovie, activeSearch, singleMovie}) => {
-  
-  return (
+class MovieDetails extends Component { 
+  constructor(props) {
+    super(props);
+    this.state = {
+      movieDetails: {}
+    }
+  }
+
+  componentDidMount = () => {
+    getMovieById(this.props.chosenMovie.id)
+      .then(data => this.setState({ movieDetails: data.movie}))
+  }
+    
+  render() {
+    return (
     <div className="overlay-single-movie">
-      <img src={backdrop_path} className="backdrop" alt={title}/>
+      <img src={this.state.movieDetails.backdrop_path} className="backdrop" alt={this.state.movieDetails.title}/>
       <div className="movie-info">
-        <img src={poster_path} className="movie-poster" alt={title} />
+        <img src={this.state.movieDetails.poster_path} className="movie-poster" alt={this.state.movieDetails.title} />
         <div className="details">
-          <h2>{title} {tagline && <em>- "<span>{tagline}</span>"</em>}</h2>
+          <h2>{this.state.movieDetails.title} {this.state.movieDetails.tagline && <em>- "<span>{this.state.movieDetails.tagline}</span>"</em>}</h2>
           <ul>
-            {overview && <li><span className="category">Overview:</span> {overview}</li>}
-            {genres && <li><span className="category">Genres:</span> {genres.map((genre, index) => index ? ", " + genre : genre)}</li>}
-            {budget ? <li><span className="category">Budget:</span> ${budget.toLocaleString()}</li>: null}
-            {revenue ? <li><span className="category">Revenue:</span> ${revenue.toLocaleString()}</li>: null}
-            {runtime ? <li><span className="category">Runtime:</span> {runtime} minutes</li>: null}
-            <li><span className="category">Rating:</span> {Math.round(average_rating)}/10</li>
+            {this.state.movieDetails.overview && <li><span className="category">Overview:</span> {this.state.movieDetails.overview}</li>}
+            {this.state.movieDetails.genres && <li><span className="category">Genres:</span> {this.state.movieDetails.genres.map((genre, index) => index ? ", " + genre : genre)}</li>}
+            {this.state.movieDetails.budget ? <li><span className="category">Budget:</span> ${this.state.movieDetails.budget.toLocaleString()}</li>: null}
+            {this.state.movieDetails.revenue ? <li><span className="category">Revenue:</span> ${this.state.movieDetails.revenue.toLocaleString()}</li>: null}
+            {this.state.movieDetails.runtime ? <li><span className="category">Runtime:</span> {this.state.movieDetails.runtime} minutes</li>: null}
+            <li><span className="category">Rating:</span> {Math.round(this.state.movieDetails.average_rating)}/10</li>
           </ul>
         </div>
       </div>
-      <Footer chooseMovie={chooseMovie} activeSearch={activeSearch} singleMovie={singleMovie} />
+      <Footer chooseMovie={this.props.chooseMovie} activeSearch={this.props.activeSearch} singleMovie={this.props.singleMovie} />
     </div>
-  )
+    )
+  }
 }
 
 export default MovieDetails;
