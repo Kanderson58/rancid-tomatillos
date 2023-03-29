@@ -4,6 +4,7 @@ import MoviesList from '../MoviesList/MoviesList';
 import Header from '../Header/Header';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import { getAllMovies, getMovieById } from '../../apiCalls';
+import { Route } from 'react-router-dom';
 
 class App extends Component {
   constructor() {
@@ -22,16 +23,6 @@ class App extends Component {
     getAllMovies()
       .then(movies => { this.setState({ allMovies: movies.movies, filteredMovies: movies.movies })})
       .catch(error => {this.setState({ error: error.toString() })});
-  }
-
-  chooseMovie = (movie) => {
-    if (movie) {
-      getMovieById(movie.id)
-      .then(movieData => {this.setState({ selectedMovie: movieData.movie })})
-      .catch(error => {this.setState({ error: error.toString() })});
-    } else {
-      this.setState({ selectedMovie: null });
-    }
   }
 
   onSearch = (search) => {
@@ -57,29 +48,20 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie}/>
+        <Header onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie} />
 
         {this.state.error && <p className='error'>Sorry, there was an error loading your page!  {this.state.error}</p>}
 
         {this.state.searchError && <p className='error'>{this.state.searchError}</p>}
 
-        {!this.state.selectedMovie && !this.state.error && this.state.filteredMovies.length > 0 && <MoviesList allMovies={this.state.filteredMovies} chooseMovie={this.chooseMovie} />}
+        <Route exact path="/" render={() => 
+          <MoviesList allMovies={this.state.filteredMovies} />}
+        />
 
-        {this.state.selectedMovie && !this.state.error && <MovieDetails 
-          title={this.state.selectedMovie.title}
-          average_rating={this.state.selectedMovie.average_rating}
-          overview= {this.state.selectedMovie.overview}
-          genres={this.state.selectedMovie.genres}
-          budget={this.state.selectedMovie.budget}
-          revenue={this.state.selectedMovie.revenue}
-          runtime={this.state.selectedMovie.runtime}
-          tagline={this.state.selectedMovie.tagline}
-          backdrop_path={this.state.selectedMovie.backdrop_path}
-          poster_path={this.state.selectedMovie.poster_path}
-          chooseMovie={this.chooseMovie} 
-          activeSearch={this.state.activeSearch}
-          singleMovie={this.state.selectedMovie ? true : false}
-          />}
+        <Route path="/:id" render={({match}) =>  {
+          const chosenMovie = this.state.allMovies.find(movie => movie.id == match.params.id)
+          return <MovieDetails chosenMovie={chosenMovie} />}}
+        />
       </div>
     )
   };

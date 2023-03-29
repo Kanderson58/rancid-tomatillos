@@ -1,42 +1,56 @@
 import "./MovieDetails.css";
 import Footer from "./Footer/Footer";
 import PropTypes from 'prop-types';
+import { getMovieById } from "../../apiCalls";
+import { Component } from "react";
 
+class MovieDetails extends Component { 
+  constructor(props) {
+    super(props);
+    this.state = {
+      movieDetails: {}
+    }
+  }
 
-const MovieDetails = ({title, average_rating, overview, genres, budget, revenue, runtime, tagline, backdrop_path, poster_path, chooseMovie, activeSearch, singleMovie}) => {
-  return (
+  componentDidMount = () => {
+    getMovieById(this.props.chosenMovie.id)
+      .then(data => this.setState({ movieDetails: data.movie}));
+  }
+    
+  render() {
+    const movie = this.state.movieDetails;
+    return (
     <div className="overlay-single-movie">
-      <img src={backdrop_path} className="backdrop" alt={title}/>
+      <img src={movie.backdrop_path} className="backdrop" alt={movie.title}/>
       <div className="movie-info">
-        <img src={poster_path} className="movie-poster" alt={title} />
+        <img src={movie.poster_path} className="movie-poster" alt={movie.title} />
         <div className="details">
-          <h2>{title} {tagline && <em>- "<span>{tagline}</span>"</em>}</h2>
+          <h2>{movie.title} {movie.tagline && <em>- "<span>{movie.tagline}</span>"</em>}</h2>
           <ul>
-            {overview && <li><span className="category">Overview:</span> {overview}</li>}
-            {genres && <li><span className="category">Genres:</span> {genres.map((genre, index) => index ? ", " + genre : genre)}</li>}
-            {budget ? <li><span className="category">Budget:</span> ${budget.toLocaleString()}</li>: null}
-            {revenue ? <li><span className="category">Revenue:</span> ${revenue.toLocaleString()}</li>: null}
-            {runtime ? <li><span className="category">Runtime:</span> {runtime} minutes</li>: null}
-            <li><span className="category">Rating:</span> {Math.round(average_rating)}/10</li>
+            {movie.overview && <li><span className="category">Overview:</span> {movie.overview}</li>}
+            {movie.genres && <li><span className="category">Genres:</span> {movie.genres.map((genre, index) => index ? ", " + genre : genre)}</li>}
+            {movie.budget ? <li><span className="category">Budget:</span> ${movie.budget.toLocaleString()}</li>: null}
+            {movie.revenue ? <li><span className="category">Revenue:</span> ${movie.revenue.toLocaleString()}</li>: null}
+            {movie.runtime ? <li><span className="category">Runtime:</span> {movie.runtime} minutes</li>: null}
+            <li><span className="category">Rating:</span> {Math.round(movie.average_rating)}/10</li>
           </ul>
         </div>
       </div>
-      <Footer chooseMovie={chooseMovie} activeSearch={activeSearch} singleMovie={singleMovie} />
+      <Footer />
     </div>
-  )
+    )
+  }
 }
 
 export default MovieDetails;
 
 MovieDetails.propTypes = {
-  backdrop_path: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  average_rating: PropTypes.number.isRequired,
-  overview: PropTypes.string,
-  genres: PropTypes.arrayOf(PropTypes.string),
-  budget: PropTypes.number,
-  revenue: PropTypes.number,
-  runtime: PropTypes.number,
-  tagline: PropTypes.string,
-  chooseMovie: PropTypes.func.isRequired
+  chosenMovie: PropTypes.shape({
+    average_rating: PropTypes.number,
+    backdrop_path: PropTypes.string,
+    id: PropTypes.number,
+    poster_path: PropTypes.string,
+    release_date: PropTypes.string,
+    title: PropTypes.string
+  }).isRequired
 }
