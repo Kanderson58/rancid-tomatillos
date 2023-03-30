@@ -29,8 +29,9 @@ class MovieDetails extends Component {
     } else if (this.state.error) {
       return <Error error={this.state.error} chooseMovie={this.props.chooseMovie}/>
     }
-
+    console.log(this.props.chosenMovie)
     return (
+
     <div className="overlay-single-movie">
       <img src={movie.backdrop_path} className="backdrop" alt={movie.title}/>
       <div className="movie-info">
@@ -38,12 +39,12 @@ class MovieDetails extends Component {
         <div className="details">
           <h2>{movie.title} {movie.tagline && <em>- "<span>{movie.tagline}</span>"</em>}</h2>
           <ul>
+            {this.props.chosenMovie.average_rating ? <li><span className="category">Rating:</span> {Math.round  (this.props.chosenMovie.average_rating)}/10</li> : null}
             {movie.overview && <li><span className="category">Overview:</span> {movie.overview}</li>}
             {movie.genres && <li><span className="category">Genres:</span> {movie.genres.map((genre, index) => index ? ", " + genre : genre)}</li>}
             {movie.budget ? <li><span className="category">Budget:</span> ${movie.budget.toLocaleString()}</li>: null}
             {movie.revenue ? <li><span className="category">Revenue:</span> ${movie.revenue.toLocaleString()}</li>: null}
             {movie.runtime ? <li><span className="category">Runtime:</span> {movie.runtime} minutes</li>: null}
-            {movie.rating ? <li><span className="category">Rating:</span> {Math.round(movie.average_rating)}/10</li> : null}
           </ul>
         </div>
       </div>
