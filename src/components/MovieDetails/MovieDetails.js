@@ -50,6 +50,7 @@ class MovieDetails extends Component {
 
 export default MovieDetails;
 
+
 MovieDetails.propTypes = {
   chosenMovie: PropTypes.shape({
     average_rating: PropTypes.number,
