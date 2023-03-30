@@ -5,7 +5,7 @@ const Footer = ({chooseMovie}) => {
   return (
     <footer>
       <Link to='/' >
-        <button className='home-button' onClick={() => chooseMovie(null)} >⬅ Go Back</button>
+        <button className='home-button' onClick={() => chooseMovie(null)} >⬅ Go Back Home</button>
       </Link>
     </footer>
   )

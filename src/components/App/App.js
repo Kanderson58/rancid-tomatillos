@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   chooseMovie = (movie) => {
-    this.setState({selectedMovie: movie})
+    this.setState({selectedMovie: movie, filteredMovies: this.state.allMovies})
   }
 
   onSearch = (search) => {
@@ -54,7 +54,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie} />
+        <Header onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie} chooseMovie={this.chooseMovie} />
 
         {this.state.error && <p className='error'>Sorry, there was an error loading your page!  {this.state.error}</p>}
 
@@ -69,7 +69,6 @@ class App extends Component {
           return <MovieDetails chooseMovie={this.chooseMovie} chosenMovie={chosenMovie} selectedMovieID={match.params.id} />}}
         />
 
-        {/* {this.state.activeSearch && <Footer />} */}
       </div>
     )
   };

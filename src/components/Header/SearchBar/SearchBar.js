@@ -1,6 +1,7 @@
 import './SearchBar.css'
 import PropTypes from 'prop-types'
 import { Component} from 'react';
+import Footer from '../../MovieDetails/Footer/Footer';
 
 class SearchBar extends Component {
   constructor() {
