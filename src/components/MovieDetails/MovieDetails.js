@@ -42,7 +42,7 @@ class MovieDetails extends Component {
           </ul>
         </div>
       </div>
-      <Footer />
+      <Footer chooseMovie={this.props.chooseMovie} />
     </div>
     )
   }

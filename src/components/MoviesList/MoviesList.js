@@ -2,10 +2,10 @@ import MovieCard from "./Moviecard/MovieCard";
 import './MoviesList.css';
 import PropTypes from 'prop-types';
 
-const MoviesList = ({allMovies}) => {
+const MoviesList = ({chooseMovie, allMovies}) => {
   return (
     <div className='moviesList'>
-      {allMovies.map(movie => <MovieCard key={movie.id} movie={movie} />)}
+      {allMovies.map(movie => <MovieCard chooseMovie={chooseMovie} key={movie.id} movie={movie} />)}
     </div>
   )
 }

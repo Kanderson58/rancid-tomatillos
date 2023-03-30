@@ -1,6 +1,6 @@
 import './SearchBar.css'
 import PropTypes from 'prop-types'
-import { Component } from 'react';
+import { Component} from 'react';
 
 class SearchBar extends Component {
   constructor() {
@@ -23,15 +23,15 @@ class SearchBar extends Component {
   render() {
     return (
       <div className='searchBar'>
-        {!this.props.selectedMovie && <label htmlFor='search-bar'>Search Movies:</label>}
-        {!this.props.selectedMovie && <input 
+        <label htmlFor='search-bar'>Search Movies:</label>
+        <input 
           id='search-bar'
           type='text'
           placeholder='Search...'
           onChange={(event) => this.onChange(event)}
           onKeyUp={() => this.props.onSearch(this.state.search)}
           value={this.state.search}
-        />}
+        />
         {this.state.search && !this.props.selectedMovie && <button className='clear-btn' onClick={(event) => {this.clearInput(event)}}>Clear Search</button>}
       </div>
     )

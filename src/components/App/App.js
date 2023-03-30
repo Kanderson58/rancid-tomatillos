@@ -3,7 +3,9 @@ import { Component } from 'react';
 import MoviesList from '../MoviesList/MoviesList';
 import Header from '../Header/Header';
 import MovieDetails from '../MovieDetails/MovieDetails';
-import { getAllMovies, getMovieById } from '../../apiCalls';
+import SearchBar from '../Header/SearchBar/SearchBar';
+import Footer from '../MovieDetails/Footer/Footer';
+import { getAllMovies } from '../../apiCalls';
 import { Route } from 'react-router-dom';
 
 class App extends Component {
@@ -23,6 +25,10 @@ class App extends Component {
     getAllMovies()
       .then(movies => { this.setState({ allMovies: movies.movies, filteredMovies: movies.movies })})
       .catch(error => {this.setState({ error: error.toString() })});
+  }
+
+  chooseMovie = (movie) => {
+    this.setState({selectedMovie: movie})
   }
 
   onSearch = (search) => {
@@ -55,14 +61,15 @@ class App extends Component {
         {this.state.searchError && <p className='error'>{this.state.searchError}</p>}
 
         <Route exact path="/" render={() => 
-          <MoviesList allMovies={this.state.filteredMovies} />}
+          <MoviesList chooseMovie={this.chooseMovie} allMovies={this.state.filteredMovies} />}
         />
 
         <Route path="/:id" render={({match}) =>  {
           const chosenMovie = this.state.allMovies.find(movie => movie.id == match.params.id)
-          return <MovieDetails chosenMovie={chosenMovie} selectedMovieID={match.params.id} />}}
+          return <MovieDetails chooseMovie={this.chooseMovie} chosenMovie={chosenMovie} selectedMovieID={match.params.id} />}}
         />
 
+        {/* {this.state.activeSearch && <Footer />} */}
       </div>
     )
   };
