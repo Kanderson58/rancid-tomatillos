@@ -1,0 +1,22 @@
+.error {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-family: 'Bebas Neue', cursive;
+  width: 100%;
+  height: 200px;
+  font-size: 50px;
+  color: #880114;
+  animation-name: stretch;
+  animation-duration: .7s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+}
+
+@keyframes stretch {
+  0% { opacity: 100%; }
+  100% { opacity: 50%; }  
+}
