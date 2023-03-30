@@ -2,10 +2,10 @@ import './MovieCard.css';
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 
-const MovieCard = ({movie}) => {
+const MovieCard = ({chooseMovie, movie}) => {
   return (
     <Link to={`/${movie.id}`}>
-      <div className='movieCard' tabIndex='0'>
+      <div className='movieCard' tabIndex='0' onClick={() => chooseMovie(movie)}>
         <img src={movie.poster_path} alt={movie.title}/>
         <div className='overlay'>
           <h2 className='title'>{movie.title}</h2>

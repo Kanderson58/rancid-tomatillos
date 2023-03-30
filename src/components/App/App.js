@@ -3,8 +3,10 @@ import { Component } from 'react';
 import MoviesList from '../MoviesList/MoviesList';
 import Header from '../Header/Header';
 import MovieDetails from '../MovieDetails/MovieDetails';
-import { getAllMovies, getMovieById } from '../../apiCalls';
-import { Route } from 'react-router-dom';
+import SearchBar from '../Header/SearchBar/SearchBar';
+import Error from '../Error/Error';
+import { getAllMovies } from '../../apiCalls';
+import { Route, Switch } from 'react-router-dom';
 
 class App extends Component {
   constructor() {
@@ -12,9 +14,9 @@ class App extends Component {
     this.state = {
       allMovies: [],
       filteredMovies: [],
-      selectedMovie: null,
-      error: null,
-      searchError: null,
+      selectedMovie: {},
+      error: '',
+      searchError: '',
       activeSearch: false
     }
   }
@@ -23,6 +25,10 @@ class App extends Component {
     getAllMovies()
       .then(movies => { this.setState({ allMovies: movies.movies, filteredMovies: movies.movies })})
       .catch(error => {this.setState({ error: error.toString() })});
+  }
+
+  chooseMovie = (movie) => {
+    this.setState({selectedMovie: movie, filteredMovies: this.state.allMovies})
   }
 
   onSearch = (search) => {
@@ -46,22 +52,29 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.error)
     return (
       <div className="App">
-        <Header onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie} />
+        <Header onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie} chooseMovie={this.chooseMovie} />
 
-        {this.state.error && <p className='error'>Sorry, there was an error loading your page!  {this.state.error}</p>}
+        <Route exact path ='/' render={() => <SearchBar onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie} chooseMovie={this.chooseMovie} />}/>
 
         {this.state.searchError && <p className='error'>{this.state.searchError}</p>}
 
-        <Route exact path="/" render={() => 
-          <MoviesList allMovies={this.state.filteredMovies} />}
-        />
+        {this.state.error && <Error error={this.state.error} chooseMovie={this.chooseMovie} />}
 
-        <Route path="/:id" render={({match}) =>  {
-          const chosenMovie = this.state.allMovies.find(movie => movie.id == match.params.id)
-          return <MovieDetails chosenMovie={chosenMovie} />}}
-        />
+        <Switch>
+          <Route exact path="/" render={() => 
+            <MoviesList chooseMovie={this.chooseMovie} allMovies={this.state.filteredMovies} />}
+          />
+
+          <Route exact path="/:id" render={({match}) =>  {
+            const chosenMovie = this.state.allMovies.find(movie => movie.id == match.params.id)
+            return <MovieDetails chooseMovie={this.chooseMovie} chosenMovie={chosenMovie} selectedMovieID={match.params.id} />}}
+          />
+
+          <Route path='/' render={() => <Error error={this.state.error} chooseMovie={this.chooseMovie}/> }/>
+        </Switch>
       </div>
     )
   };
