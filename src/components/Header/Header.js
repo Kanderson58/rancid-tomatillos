@@ -3,14 +3,14 @@ import tomatillo from './tomatillo.png'
 import SearchBar from './SearchBar/SearchBar'
 import PropTypes from 'prop-types';
 
-const Header = ({onSearch, clearSearch, selectedMovie, chooseMovie}) => {
+const Header = () => {
   return (
     <header>
       <div className='header'>
         <h1>Rancid Tomatillos</h1>
         <img className='tomatillo' src={tomatillo} alt='tomatillo' />
       </div>
-      {!selectedMovie && <SearchBar onSearch={onSearch} clearSearch={clearSearch} selectedMovie={selectedMovie} chooseMovie={chooseMovie} />}
+      <h1 className='trademark'>Definitely Not Rotten Tomatoes ™️</h1>
     </header>
   )
 }

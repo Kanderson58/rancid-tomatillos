@@ -9,20 +9,25 @@ class MovieDetails extends Component {
     super(props);
     this.state = {
       movieDetails: {},
-      loading: true
+      loading: true,
+      error: ''
     }
   }
 
   componentDidMount = () => {
     getMovieById(this.props.selectedMovieID)
-    .then(data => this.setState({ movieDetails: data.movie, loading: false}));
+    .then(data => this.setState({ movieDetails: data.movie, loading: false}))
+    .catch(error => this.setState({ error: error.toString() }))
   }
 
   render() {
     const movie = this.state.movieDetails;
 
-    if(this.state.loading) {
-      return (<p>Loading...</p>)
+    if(this.state.loading && !this.state.error) {
+      return (<p className="loading">Loading...</p>)
+    } else if (this.state.error) {
+      return (<div><p className="loading">Sorry, something went wrong: {this.state.error}</p>
+        <Footer chooseMovie={this.props.chooseMovie} /></div>)
     }
 
     return (

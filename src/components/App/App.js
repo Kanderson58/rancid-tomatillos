@@ -4,7 +4,6 @@ import MoviesList from '../MoviesList/MoviesList';
 import Header from '../Header/Header';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import SearchBar from '../Header/SearchBar/SearchBar';
-import Footer from '../MovieDetails/Footer/Footer';
 import { getAllMovies } from '../../apiCalls';
 import { Route } from 'react-router-dom';
 
@@ -14,9 +13,9 @@ class App extends Component {
     this.state = {
       allMovies: [],
       filteredMovies: [],
-      selectedMovie: null,
-      error: null,
-      searchError: null,
+      selectedMovie: {},
+      error: '',
+      searchError: '',
       activeSearch: false
     }
   }
@@ -55,6 +54,8 @@ class App extends Component {
     return (
       <div className="App">
         <Header onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie} chooseMovie={this.chooseMovie} />
+
+        <Route exact path ='/' render={() => <SearchBar onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie} chooseMovie={this.chooseMovie} />}/>
 
         {this.state.error && <p className='error'>Sorry, there was an error loading your page!  {this.state.error}</p>}
 

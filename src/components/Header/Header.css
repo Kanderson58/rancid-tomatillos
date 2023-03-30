@@ -6,7 +6,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 3% 0;
+  margin: 2.5% 0;
   border-bottom: rgb(255, 217, 0) 5px solid;
 }
 
@@ -25,4 +25,9 @@ h1 {
 
 .tomatillo {
   height: 150px;
+}
+
+.trademark {
+  font-size: 15pt;
+  color: #ffd937;
 }
