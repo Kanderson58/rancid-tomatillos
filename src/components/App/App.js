@@ -52,7 +52,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.error)
     return (
       <div className="App">
         <Header onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie} chooseMovie={this.chooseMovie} />
