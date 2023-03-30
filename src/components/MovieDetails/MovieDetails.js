@@ -8,17 +8,23 @@ class MovieDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movieDetails: {}
+      movieDetails: {},
+      loading: true
     }
   }
 
   componentDidMount = () => {
-    getMovieById(this.props.chosenMovie.id)
-      .then(data => this.setState({ movieDetails: data.movie}));
+    getMovieById(this.props.selectedMovieID)
+    .then(data => this.setState({ movieDetails: data.movie, loading: false}));
   }
-    
+
   render() {
     const movie = this.state.movieDetails;
+
+    if(this.state.loading) {
+      return (<p>Loading...</p>)
+    }
+
     return (
     <div className="overlay-single-movie">
       <img src={movie.backdrop_path} className="backdrop" alt={movie.title}/>
@@ -32,7 +38,7 @@ class MovieDetails extends Component {
             {movie.budget ? <li><span className="category">Budget:</span> ${movie.budget.toLocaleString()}</li>: null}
             {movie.revenue ? <li><span className="category">Revenue:</span> ${movie.revenue.toLocaleString()}</li>: null}
             {movie.runtime ? <li><span className="category">Runtime:</span> {movie.runtime} minutes</li>: null}
-            <li><span className="category">Rating:</span> {Math.round(movie.average_rating)}/10</li>
+            {movie.rating ? <li><span className="category">Rating:</span> {Math.round(movie.average_rating)}/10</li> : null}
           </ul>
         </div>
       </div>
