@@ -1,6 +1,7 @@
 import "./MovieDetails.css";
-import Footer from "./Footer/Footer";
 import PropTypes from 'prop-types';
+import Error from "../Error/Error";
+import Footer from "./Footer/Footer";
 import { getMovieById } from "../../apiCalls";
 import { Component } from "react";
 
@@ -26,8 +27,7 @@ class MovieDetails extends Component {
     if(this.state.loading && !this.state.error) {
       return (<p className="loading">Loading...</p>)
     } else if (this.state.error) {
-      return (<div><p className="loading">Sorry, something went wrong: {this.state.error}</p>
-        <Footer chooseMovie={this.props.chooseMovie} /></div>)
+      return <Error error={this.state.error} chooseMovie={this.props.chooseMovie}/>
     }
 
     return (

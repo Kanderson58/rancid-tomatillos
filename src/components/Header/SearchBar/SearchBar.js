@@ -33,7 +33,7 @@ class SearchBar extends Component {
           onKeyUp={() => this.props.onSearch(this.state.search)}
           value={this.state.search}
         />
-        {this.state.search && !this.props.selectedMovie && <button className='clear-btn' onClick={(event) => {this.clearInput(event)}}>Clear Search</button>}
+        {this.state.search && <button className='clear-btn' onClick={(event) => {this.clearInput(event)}}>Clear Search</button>}
       </div>
     )
   } 

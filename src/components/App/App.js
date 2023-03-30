@@ -4,8 +4,9 @@ import MoviesList from '../MoviesList/MoviesList';
 import Header from '../Header/Header';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import SearchBar from '../Header/SearchBar/SearchBar';
+import Error from '../Error/Error';
 import { getAllMovies } from '../../apiCalls';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 class App extends Component {
   constructor() {
@@ -51,25 +52,29 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.error)
     return (
       <div className="App">
         <Header onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie} chooseMovie={this.chooseMovie} />
 
         <Route exact path ='/' render={() => <SearchBar onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie} chooseMovie={this.chooseMovie} />}/>
 
-        {this.state.error && <p className='error'>Sorry, there was an error loading your page!  {this.state.error}</p>}
-
         {this.state.searchError && <p className='error'>{this.state.searchError}</p>}
 
-        <Route exact path="/" render={() => 
-          <MoviesList chooseMovie={this.chooseMovie} allMovies={this.state.filteredMovies} />}
-        />
+        {this.state.error && <Error error={this.state.error} chooseMovie={this.chooseMovie} />}
 
-        <Route path="/:id" render={({match}) =>  {
-          const chosenMovie = this.state.allMovies.find(movie => movie.id == match.params.id)
-          return <MovieDetails chooseMovie={this.chooseMovie} chosenMovie={chosenMovie} selectedMovieID={match.params.id} />}}
-        />
+        <Switch>
+          <Route exact path="/" render={() => 
+            <MoviesList chooseMovie={this.chooseMovie} allMovies={this.state.filteredMovies} />}
+          />
 
+          <Route exact path="/:id" render={({match}) =>  {
+            const chosenMovie = this.state.allMovies.find(movie => movie.id == match.params.id)
+            return <MovieDetails chooseMovie={this.chooseMovie} chosenMovie={chosenMovie} selectedMovieID={match.params.id} />}}
+          />
+
+          <Route path='/' render={() => <Error error={this.state.error} chooseMovie={this.chooseMovie}/> }/>
+        </Switch>
       </div>
     )
   };
