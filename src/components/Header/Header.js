@@ -4,13 +4,16 @@ import PropTypes from 'prop-types';
 
 const Header = () => {
   return (
-    <header>
-      <div className='header'>
-        <h1>Rancid Tomatillos</h1>
-        <img className='tomatillo' src={tomatillo} alt='tomatillo' />
-      </div>
-      <h2 className='trademark'>Definitely Not Rotten Tomatoes ™️</h2>
-    </header>
+    <div className='full-header'>
+      <header>
+        <div className='header'>
+          <h1>Rancid Tomatillos</h1>
+          <img className='tomatillo' src={tomatillo} alt='tomatillo' />
+        </div>
+        <h2 className='trademark'>Definitely Not Rotten Tomatoes ™️</h2>
+      </header>
+      <div className='bottom-border'></div>  
+    </div>
   )
 }
 

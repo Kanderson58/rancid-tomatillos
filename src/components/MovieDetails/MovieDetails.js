@@ -33,6 +33,9 @@ class MovieDetails extends Component {
     .then(data => {
       this.setState({ trailer: data.videos.find(video => video.type === 'Trailer') })
     })
+    .catch(error => {
+      this.setState({ error: error.toString() });
+    });
   }
 
   renderLoading() {
@@ -55,7 +58,7 @@ class MovieDetails extends Component {
         <img src={movieDetails.backdrop_path} className="backdrop" alt={movieDetails.title}/>
         <div className="movie-info">
           {!this.state.trailer && <img src={movieDetails.poster_path} className="movie-poster" alt={movieDetails.title} />}
-          {this.state.trailer && <iframe className='movie-poster' src={`https://www.youtube.com/embed/${this.state.trailer.key}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>}
+          {this.state.trailer && <iframe className='movie-poster' src={`https://www.youtube-nocookie.com/embed/${this.state.trailer.key}`} title={`${movieDetails.title} Official Trailer`} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" allowFullScreen={true}></iframe>}
           <div className="details">
             <h2>{movieDetails.title} {movieDetails.tagline && <em>- "<span>{movieDetails.tagline}</span>"</em>}</h2>
             <ul>
