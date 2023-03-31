@@ -1,5 +1,6 @@
 import './Error.css'
 import Footer from '../MovieDetails/Footer/Footer'
+import PropTypes from 'prop-types'
 
 const Error = ({error, chooseMovie}) => {
   let errorMessage;
@@ -17,5 +18,9 @@ const Error = ({error, chooseMovie}) => {
   )
 }
 
-
 export default Error
+
+Error.propTypes = {
+  error: PropTypes.string,
+  chooseMovie: PropTypes.func.isRequired
+};
