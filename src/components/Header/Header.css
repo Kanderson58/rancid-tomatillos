@@ -7,7 +7,7 @@ header {
   align-items: center;
   justify-content: space-between;
   margin: 2.5% 0;
-  border-bottom: rgb(255, 217, 0) 5px solid;
+  border-bottom: 5px solid gold;
 }
 
 h1 {
@@ -29,5 +29,6 @@ h1 {
 
 .trademark {
   font-size: 15pt;
-  color: #ffd937;
+  color: gold;
+  padding-right: 2%;
 }

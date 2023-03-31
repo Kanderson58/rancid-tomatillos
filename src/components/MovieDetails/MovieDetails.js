@@ -11,7 +11,8 @@ class MovieDetails extends Component {
     this.state = {
       movieDetails: {},
       loading: true,
-      error: ''
+      error: '',
+      trailer: {}
     }
   }
 
@@ -27,6 +28,11 @@ class MovieDetails extends Component {
     .catch(error => {
       this.setState({ error: error.toString() });
     });
+
+    getMovieById(`${this.props.selectedMovieID}/videos`)
+    .then(data => {
+      this.setState({ trailer: data.videos.find(video => video.type === 'Trailer') })
+    })
   }
 
   renderLoading() {
@@ -43,12 +49,13 @@ class MovieDetails extends Component {
 
   renderMovieDetails() {
     const { movieDetails } = this.state;
-
+  
     return (
       <div className="overlay-single-movie">
         <img src={movieDetails.backdrop_path} className="backdrop" alt={movieDetails.title}/>
         <div className="movie-info">
-          <img src={movieDetails.poster_path} className="movie-poster" alt={movieDetails.title} />
+          {!this.state.trailer && <img src={movieDetails.poster_path} className="movie-poster" alt={movieDetails.title} />}
+          {this.state.trailer && <iframe className='movie-poster' src={`https://www.youtube.com/embed/${this.state.trailer.key}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen={true}></iframe>}
           <div className="details">
             <h2>{movieDetails.title} {movieDetails.tagline && <em>- "<span>{movieDetails.tagline}</span>"</em>}</h2>
             <ul>
@@ -78,14 +85,8 @@ class MovieDetails extends Component {
 }
 
 MovieDetails.propTypes = {
-  chosenMovie: PropTypes.shape({
-    average_rating: PropTypes.number,
-    backdrop_path: PropTypes.string,
-    id: PropTypes.number,
-    poster_path: PropTypes.string,
-    release_date: PropTypes.string,
-    title: PropTypes.string
-  }).isRequired
+  chooseMovie: PropTypes.func.isRequired,
+  selectedMovieID: PropTypes.string.isRequired
 };
 
 export default MovieDetails;
