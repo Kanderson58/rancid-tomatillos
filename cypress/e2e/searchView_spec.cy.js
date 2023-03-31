@@ -1,24 +1,26 @@
 describe('Search View', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/')
+    cy.intercept('https://rancid-tomatillos.herokuapp.com/api/v2/movies', {
+      fixture: 'movies.json'
+    }).visit('http://localhost:3000/')
   });
 
   it('should allow user to select search bar and type', () => {
-    cy.get('input').type('black panther')
+    cy.get('input').type('black adam')
   });
 
   it('should present a movie with a matching title to the search', () => {
     cy.get('input')
-      .type('maneater')
+      .type('the woman king')
       .get('.movieCard')
-      .contains('Maneater')
+      .contains('The Woman King')
   });  
 
   it('should allow a user to use any capitilization in search', () => {
     cy.get('input')
-      .type('FALL')
+      .type('BLACK ADAM')
       .get('.movieCard')
-      .contains('Fall')
+      .contains('Black Adam')
   });
 
   it('should show an error if the user searches a movie that does not exist', () => {
@@ -39,10 +41,10 @@ describe('Search View', () => {
 
   it('should allow user to click movie card within search', () => {
     cy.get('input')
-    .type('black panther')
+    .type('black adam')
     .get('.movieCard')
     .click()
     .get('.movie-info')
-    .contains('Black Panther: Wakanda Forever - "Forever."')
+    .contains('Black Adam - "The world needed a hero. It got Black Adam."')
   });
 })
