@@ -68,8 +68,7 @@ class App extends Component {
           />
 
           <Route exact path="/:id" render={({match}) =>  {
-            const chosenMovie = this.state.allMovies.find(movie => movie.id == match.params.id)
-            return <MovieDetails chooseMovie={this.chooseMovie} chosenMovie={chosenMovie} selectedMovieID={match.params.id} />}}
+            return <MovieDetails chooseMovie={this.chooseMovie} selectedMovieID={match.params.id} />}}
           />
 
           <Route path='/' render={() => <Error error={this.state.error} chooseMovie={this.chooseMovie}/> }/>
