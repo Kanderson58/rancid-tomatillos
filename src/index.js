@@ -5,7 +5,7 @@ import App from './components/App/App';
 import { BrowserRouter } from 'react-router-dom';
 
 const router = 
-  <BrowserRouter>
+  <BrowserRouter basename='rancid-tomatillos'>
     <React.StrictMode>
       <App /> 
     </React.StrictMode>
