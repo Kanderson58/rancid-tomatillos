@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# Rancid Tomatillos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
+  - [Introduction](#Introduction)
+  - [Technologies](#Technologies)
+  - [Contributors](#Contributors)
+  - [Illustrations](#Illustrations)
+  - [Deployed Page](#Deployed-Page)
+  - [Wins](#Wins)
+  - [Challenges & Improvements](#Challenges-&-Improvements)
+  - [Set Up](#Set-Up)
+  - [Sources](#Sources)
+  - [Project Spec](#Project-Spec)
 
-## Available Scripts
+## Introduction
 
-In the project directory, you can run:
+Welcome to Rancid Tomatillos, a tasteful twist on the well-known movie rating site Rotten Tomatoes. Cooked up during our first week of Mod 3 at Turing School, this dynamic duo implemented full functionality and a ✨sprinkle✨ of extra features in just two weeks.
 
-### `npm start`
+Taking our first steps into the world of React framework, Router, and Cypress testing, we got great exposure into learning the ins and outs of React components and asynchronous JavaScript.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+As you explore Rancid Tomatillos, you'll find clickable movie posters that unveil a wealth of information about the selected movie. Go ahead and search for movies by title, and you'll discover details such as overviews, ratings, budgets, revenues, genres, and even trailers that play right on the page. When you're ready to return to the main page, simply navigate back to the home page for more 'definitely-not-rotten' movie adventures.🎥🍿🎬
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies
+  - React
+  - Router
+  - Cypress
+  - Agile methodology
 
-### `npm test`
+## Contributors
+  - [Kara Anderson](https://github.com/Kanderson58)
+  - [Lauren 'Larry' Seward](https://github.com/LSeward0421)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Illustrations 
+![App](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWRiZGMwNDM5ZTQ5OWJkMzRkZTgyZjFiZjk0M2YyNmJmMWQ3YTcwMSZjdD1n/PyHgVJhE1Ky8zs4eHD/giphy.gif)  
 
-### `npm run build`
+## Deployed Page
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Visit our deployed [Rancid Tomatillos page!](https://kanderson58.github.io/rancid-tomatillos/)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Wins
+- Efficiently created and followed user stories, ensuring features catered to our target audience, promoting clear team communication and focus on user value.
+- Maintaining a steady pace throughout the project, meeting deadlines as expected
+- Effectively learning new concepts through self-teaching and exploration
+- Conducting comprehensive testing using Cypress for a robust application
+- Successfully incorporating accessibility features to ensure a more inclusive user experience
+- Employing the "data down, actions up" principle to implement a seamless search feature
+- Prioritizing User Experience by focusing on intuitive routing and providing multiple user-friendly ways to navigate back to the main page
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Challenges & Improvements
+  - Determing the most appropriate use of functional vs class components
+  - Overcoming the learning curve associated with Cypress testing, while ensuring comprehensive test coverage for various user interactions and edge cases
+  - Identifying and resolving issues related to asynchronous code execution and data fetching
+  - Possible future improvements and features:
+    - Implement user authentication and login functionality, enabling personalized user experiences
+    - Allow users to favorite movies, creating a curated collection of their top picks
+    - Introduce a "recently viewed" section, providing users with easy access to movies they've recently explored
+    - Enable users to submit their own reviews and ratings for movies, fostering a sense of community and user engagement
+    - Allow a user to search for movies by genre or rating, offering more refined search capabilities
+    - Build our own backend using Express.js to better tailor the data and endpoints to our application's specific needs
 
-### `npm run eject`
+## Set Up
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Fork this repo  
+2. Clone the repo to your local machine   
+3. Run `npm i`, then ` npm run build`, then `npm start`
+4. View the project in the browser by opening localhost:3000
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Sources
+  - [MDN](http://developer.mozilla.org/en-US/)
+  - [W3Schools](https://www.w3schools.com/)
+  - [React Docs](https://reactjs.org/docs/getting-started.html)
+  - [Cypress Docs](https://docs.cypress.io/guides/overview/why-cypress.html)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Project Specs
+  - The project spec & rubric can be found [here](https://frontend.turing.edu/projects/module-3/rancid-tomatillos-v3.html)
