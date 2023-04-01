@@ -3,12 +3,13 @@ describe('Single Movie View', () => {
     cy.intercept('https://rancid-tomatillos.herokuapp.com/api/v2/movies/436270', {
       fixture: 'singleMovie.json'
     })
-    .visit('http://localhost:3000/436270')
+    cy.visit('http://localhost:3000/rancid-tomatillos/436270')
   });
 
   it('should show the movie details for the specific movie selected', ()=> {
     cy.get('.movie-info')
-    .contains('h2', 'Black Adam - "The world needed a hero. It got Black Adam."')
+    cy.contains('h2', 'Black Adam')
+    cy.contains('The world needed a hero. It got Black Adam.')
     cy.contains('Overview: Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods—and imprisoned just as quickly—Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world.')
     cy.contains('Genres: Action, Fantasy, Science Fiction')
     cy.contains('Budget: $200,000,000')
@@ -22,10 +23,10 @@ describe('Single Movie View', () => {
   });
 
   it('should be able to click the back to home button to take them back to movies list', () => {
-    cy.get('.home-button').click()
-    cy.url().should('eq', 'http://localhost:3000/')
+    cy.get('.home-button').click();
+    cy.url().should('eq', 'http://localhost:3000/rancid-tomatillos/');
   });
-
+  
   it('should display error message for 404 status code', () => {
     cy.intercept('https://rancid-tomatillos.herokuapp.com/api/v2/movies/436270', {
       statusCode: 404
@@ -39,7 +40,8 @@ describe('Single Movie View', () => {
       statusCode: 500
     })
     cy.visit('http://localhost:3000/436270')
-      .contains('Sorry, something went wrong: Error: Internal Server Error')
+    cy.get('.error').should('contain.text', 'Sorry, something went wrong: Error: Internal Server Error');
+
   });
 
   it('should show trailer for movie if there is one available', () => {
@@ -60,8 +62,9 @@ describe('Single Movie View', () => {
 
   it('should show error if video fails to fetch', () => {
     cy.intercept('https://rancid-tomatillos.herokuapp.com/api/v2/movies/436270/videos', {
-      statusCode: 500
+      statusCode: 404
     })
     cy.visit('http://localhost:3000/436270')
+    cy.get('.error').should('contain.text', 'Sorry, something went wrong: Error: Not Found');
   })
 });
