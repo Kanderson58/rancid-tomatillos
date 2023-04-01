@@ -5,9 +5,9 @@ import PropTypes from 'prop-types'
 const Error = ({error, chooseMovie}) => {
   let errorMessage;
   if (error) {
-    errorMessage = <p className="error">Sorry, something went wrong: {error}</p>;
+    errorMessage = <p className='error'>Sorry, something went wrong: {error}</p>;
   } else {
-    errorMessage = <p className="error">Sorry, something went wrong: that page does not exist.</p>;
+    errorMessage = <p className='error'>Sorry, something went wrong: that page does not exist.</p>;
   }
 
   return (

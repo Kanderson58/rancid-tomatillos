@@ -25,7 +25,8 @@
 }
 
 .movie-poster {
-  margin: 2%
+  margin: 2%;
+  border: none;
 }
 
 ul {
