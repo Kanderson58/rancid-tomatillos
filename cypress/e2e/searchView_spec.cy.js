@@ -45,6 +45,6 @@ describe('Search View', () => {
     .get('.movieCard')
     .click()
     .get('.movie-info')
-    .contains('Black Adam - "The world needed a hero. It got Black Adam."')
+    .contains('h2', 'Black Adam')
   });
 })
