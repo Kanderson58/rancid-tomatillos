@@ -19,6 +19,7 @@ const MovieCard = ({chooseMovie, movie}) => {
 export default MovieCard;
 
 MovieCard.propTypes = {
+  chooseMovie: PropTypes.func.isRequired,
   movie: PropTypes.shape({
     title: PropTypes.string.isRequired,
     poster_path: PropTypes.string.isRequired,

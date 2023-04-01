@@ -23,7 +23,9 @@ class App extends Component {
 
   componentDidMount = () => {
     getAllMovies()
-      .then(movies => { this.setState({ allMovies: movies.movies, filteredMovies: movies.movies })})
+      .then(movies => { 
+        this.setState({ allMovies: movies.movies, filteredMovies: movies.movies })
+      })
       .catch(error => {this.setState({ error: error.toString() })});
   }
 
@@ -53,7 +55,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className='App'>
         <Header onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie} chooseMovie={this.chooseMovie} />
 
         <Route exact path ='/' render={() => <SearchBar onSearch={this.onSearch} clearSearch={this.clearSearch} selectedMovie={this.state.selectedMovie} chooseMovie={this.chooseMovie} />}/>
@@ -63,11 +65,11 @@ class App extends Component {
         {this.state.error && <Error error={this.state.error} chooseMovie={this.chooseMovie} />}
 
         <Switch>
-          <Route exact path="/" render={() => 
+          <Route exact path='/' render={() => 
             <MoviesList chooseMovie={this.chooseMovie} allMovies={this.state.filteredMovies} />}
           />
 
-          <Route exact path="/:id" render={({match}) =>  {
+          <Route exact path='/:id' render={({match}) =>  {
             return <MovieDetails chooseMovie={this.chooseMovie} selectedMovieID={match.params.id} />}}
           />
 
