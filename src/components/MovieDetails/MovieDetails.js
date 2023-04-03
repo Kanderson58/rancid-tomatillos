@@ -59,7 +59,7 @@ class MovieDetails extends Component {
         <div className='movie-info'>
           {!this.state.trailer && <img src={movieDetails.poster_path} className='movie-poster' alt={movieDetails.title} />}
           {this.state.trailer && <iframe className='movie-poster' src={`https://www.youtube-nocookie.com/embed/${this.state.trailer.key}`} title={`${movieDetails.title} Official Trailer`} allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;' allowFullScreen={true}></iframe>}
-          <div className='details'>
+          <div className='details' tabIndex='0'>
             <h2>{movieDetails.title} {movieDetails.tagline && <em>- '<span>{movieDetails.tagline}</span>'</em>}</h2>
             <ul>
               {movieDetails.average_rating ? <li><span className='category'>Rating:</span> {movieDetails.average_rating}/10</li> : null}
