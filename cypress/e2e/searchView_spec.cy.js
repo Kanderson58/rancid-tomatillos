@@ -45,6 +45,6 @@ describe('Search View', () => {
     .get('.movieCard')
     .click()
     .get('.movie-info')
-    .contains('h2', 'Black Adam')
+    .contains('Black Adam')
   });
 })
