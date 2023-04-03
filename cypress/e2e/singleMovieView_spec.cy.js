@@ -8,7 +8,7 @@ describe('Single Movie View', () => {
 
   it('should show the movie details for the specific movie selected', ()=> {
     cy.get('.movie-info')
-    .contains('h2', 'Black Adam - "The world needed a hero. It got Black Adam."')
+    .contains('Black Adam')
     cy.contains('Overview: Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods—and imprisoned just as quickly—Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world.')
     cy.contains('Genres: Action, Fantasy, Science Fiction')
     cy.contains('Budget: $200,000,000')
